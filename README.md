@@ -19,6 +19,7 @@
 
 *Notes*
 - Dynamic mobile and desktop - fits to height of screen no scrolling
+- Can do plaintext searches for highlighting/filtering or optionally use js regex pattern (slower)
 - JWT token payload for auth includes permission data to be consumed by api for determining which services a user has access to
 - Decided to show both major ways of form handling in angular: reactive forms for login page and template-driven form for log viewer component.
 - Currently I have the api to fetch only the file called 'serviceX-debug.log' because this file contains all the same logs as the 'serviceX-info.log' also 'service-X-error.log' is empty in these mocked services so the debug.log files appeared to contain all the necessary relevent log info.
