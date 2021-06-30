@@ -29,8 +29,8 @@ export class LoginService {
 
   login(username: string, password: string): Observable<string> {
     return this._http
-      .post(`${environment.baseUrl}api/auth`, {
-        userName:username,
+      .post(`${environment.baseUrl}api/login`, {
+        username,
         password
       }, {responseType: 'text'})
       .pipe(map((_authToken: string) => {

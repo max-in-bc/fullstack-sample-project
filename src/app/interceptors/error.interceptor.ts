@@ -16,7 +16,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     handleResponseError(error, request?:HttpRequest<any>, next?) {
 
       // If the response is 401 Unauthorized then  log the user out
-      if ([401].includes(error.status) ) {
+      if ([403].includes(error.status) ) {
         this._authService.logout();
         this._router.navigate(['/login']);
         return throwError("Invalid JWT Token");

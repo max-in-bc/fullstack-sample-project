@@ -28,24 +28,24 @@ export class LogViewerComponent implements OnInit, OnDestroy {
   //I moved from template-driven input models because once the logs reached around 5-6mb the model binding was taking FOREVER and it appeared like the input wasnt even typing
   cancelHighlightSearch$ = new Subject<any>();
   cancelFilterSearch$ = new Subject<any>();
-  constructor(private loginService: LoginService, private logService: LogService, private _ngxLoader: NgxSpinnerService) { }
+  constructor(private _loginService: LoginService, private _logService: LogService, private _ngxLoader: NgxSpinnerService) { }
 
 
   ngOnInit(): void {
     this._ngxLoader.show();
-    this.logService.getAvailableLogServices().pipe(takeUntil(this.unsub)).subscribe((services: ServiceI[]) => {
+    this._logService.getAvailableLogServices().pipe(takeUntil(this.unsub)).subscribe((services: ServiceI[]) => {
       this.services = services;
       this._ngxLoader.hide();
     })
   }
 
   async logout(){
-    this.loginService.logout();
+    this._loginService.logout();
   }
 
   selectedServiceChanged(){
     this._ngxLoader.show();
-    this.selectedServiceLog$ = this.logService.getAvailableLogsForService(this.selectedService.id).pipe(takeUntil(this.unsub), map(log => {
+    this.selectedServiceLog$ = this._logService.getAvailableLogsForService(this.selectedService.id).pipe(takeUntil(this.unsub), map(log => {
       this._ngxLoader.hide();
       return  log;
     }));

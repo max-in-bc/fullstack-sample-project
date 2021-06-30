@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   });
 
 
-  validationError = false;
+  validationError: string = null;
 
   constructor(private _loginService: LoginService, private _router: Router, private _ngxLoader: NgxSpinnerService) { }
 
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this._ngxLoader.show();
-    this.validationError = false;
+    this.validationError = null;
 
     const password = this.loginGroup.get('password').value;
     const username = this.loginGroup.get('username').value;
@@ -47,10 +47,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           this._router.navigate(['/home'])
           this._ngxLoader.hide();
         },
-        (error: HttpErrorResponse) => {
+        (response: HttpErrorResponse) => {
           // handle login failure
-          this.validationError = true;
-          console.error(error);
+          this.validationError = 'Authentication ' + response.error;
+          console.error(response.error);
           this._ngxLoader.hide();
         }
       );
