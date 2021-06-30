@@ -1,27 +1,75 @@
-# Skycopeclient
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.13.
+*How to run locally*:
+1. Begin the mock services (2 commands depending on OS) — ignore this step if you have them being mocked elsewhere:
+    1. Go into api code main project directory (with server.py in it)
+    2. $python services/server1.py
+    3. $python services/server2.py
+2. Begin the API (2 commands via gunicorn for WSGI)
+    1. Go into api code main project directory (with server.py in it)
+    2. Create/start venv if not already:
+        1. $ python3 -m venv env
+        2. $ source env/bin/activate
+    3. $ pip3 install -r requirements.txt 
+    4. $ gunicorn --bind 0.0.0.0:3000 wsgi:app
+3. Begin the client (proxy to local api) 
+    1. Navigate to client code
+    2. $npm install
+    3. $npm run start
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+*Notes*
+- Dynamic mobile and desktop - fits to height of screen no scrolling
+- JWT token payload for auth includes permission data to be consumed by api for determining which services a user has access to
+- Decided to show both major ways of form handling in angular: reactive forms for login page and template-driven form for log viewer component.  
+- Around 10-15mb the log files became a bit much for the client to do all the filtering and highlighting on its end frequently.  In real world I would focus some filtering to the back end and separate the machine running the faux services (as that was taking up memory locally) . Instead I decided to make improvements to the search sequence on the front end
+    - Debounce searches so they arent triggered on each key stroke
+    - Show a loading spinner to the user to let them know highlighting is occurring
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+*Quick Design*:
+- The following notes were what I used to flesh out the design before implementing. It was a simple enough project so I did not get too in depth before implementing, but I will include this section for posterity.
+- Its been half a decade since I used any python frameworks , but I did some quick googling and saw that Flask and Django are both still very popular so I decided to start new and go with a basic flask REST API
+    - Setup virtual env for basic api for auth/retrieving logs
+        - Models:
+            - Users
+            - Services  
+        - Endpoints
+            - Auth
+                - All endpoints except this one will be authenticated based on request bearer token
+            - All Services (GET)
+                - Request bearer token will be able to be decoded by api to determine user permissions and send back the relevant services for this method based on permissions
+            - Service Log (GET) 
+                - The services will be running in a faux fashion simulating running services logging to files
+                - This service will use the service id sent in the request to get the relevant static log file . On a production environment it may make more sense to serve static files via the webserver (like using nginx config) rather than having the api handle this
+- Client - simple enough so I decided to flesh it out
+    - Simple client routes:
+        - login (for unauthed users only visible route)
+            - LoginComponent
+                - Form for username and password
+                - Submission sends form data and returns a user auth token to be used in subsequent requests - successful auth redirects to home route
+        - home
+            - LogVIewerComponent
+                - Includes a header for filter based on:
+                    - Service
+                        - Dropdown populated from get all services endpoint
+                    - Filter by line with search string
+                        - Create a pipe for this 
+                    - Highlight characters with search string
+                        - Im thinking a pipe will be good for this assuming we can make it efficient enough
+                - Includes a text area
+                    - Dynamic fit height of any screen - scroll what cannot be seen
+                - Sign out button
+                    - Redirects to login page
+                    - Should I leave persistent across session by storing in local storage for now?
+    - Services
+        - Auth/Deauth
+        - Service List
+        - Log “getter” 
+    - Authentication:
+        - Because I am setting up a real auth system with a database and everything instead of mock i figured i would implemented an auth sequence I like using interceptors on the front end, it goes as such:
+            - Each request to api is intercepted and (if the client has one) attaches the JWT token to the request so the api can validate authentication
+            - If the token is invalid or if the client did not have a JWT to attach the api will detect this and return 401 (unauthorized)
+                - At this point we have another interceptor on the front end which detects 401 and redirects user to login 
+                - Even without redirection, any subsequent calls to the api will fail without proper authentication so it just makes sense to redirect users to login at this point
+        - Can embed info in JWT token related to user permissions to be consumed by the backend for determining which resources the user has access to (user 1 and service 1 for example) 
+ 
