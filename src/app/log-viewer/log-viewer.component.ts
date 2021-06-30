@@ -25,7 +25,7 @@ export class LogViewerComponent implements OnInit, OnDestroy {
 
   selectedServiceLog$: Observable<string> = null;
 
-  //I moved from template-driven input models because once the logs reached around 5-6mb the model binding was taking FOREVER and it appeared like the input wasnt even typing
+  //I moved from template-driven input models because once the logs reached around 5-6mb the model binding was taking FOREVER and it appeared like the input wasnt even typing. see solution below
   cancelHighlightSearch$ = new Subject<any>();
   cancelFilterSearch$ = new Subject<any>();
   constructor(private _loginService: LoginService, private _logService: LogService, private _ngxLoader: NgxSpinnerService) { }
@@ -51,7 +51,7 @@ export class LogViewerComponent implements OnInit, OnDestroy {
     }));
   }
 
-  //triggered on input change for the filter search bar - but only firing the model change event every 500 seconds resetting if fired before reaching the end of the interval
+  //triggered on input change for the filter search bar - but only firing the model change event every 500 mseconds resetting if fired before reaching the end of the interval
   //this acts to prevent the slow regex from being activated before the user has finished typing their search term
   highlightSearch(event: string  ){
     this.cancelHighlightSearch$.next();
@@ -61,7 +61,7 @@ export class LogViewerComponent implements OnInit, OnDestroy {
     })
   }
 
-  //triggered on input change for the filter search bar - but only firing the model change event every 500 seconds resetting if fired before reaching the end of the interval
+  //triggered on input change for the filter search bar - but only firing the model change event every 500 mseconds resetting if fired before reaching the end of the interval
   //this acts to prevent the slow regex from being activated before the user has finished typing their search term
   filterSearch(event: string  ){
     this.cancelFilterSearch$.next();

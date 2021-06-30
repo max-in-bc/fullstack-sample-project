@@ -20,10 +20,13 @@ export class LoginService {
   }
 
   constructor(private _http: HttpClient, private _router: Router) {
+    /* PERSISTAUTH
     let _authToken = sessionStorage.getItem('authToken'); //to persist authentication for length of session
+
     if (_authToken){
       this._authToken = _authToken;
     }
+    */
   }
 
 
@@ -32,17 +35,21 @@ export class LoginService {
       .post(`${environment.baseUrl}api/login`, {
         username,
         password
-      }, {responseType: 'text'})
+      }, {responseType: 'text'}) //returns the auth token as a string directly - we persist to storage for now
       .pipe(map((_authToken: string) => {
         this._authToken = _authToken;
+        /* PERSISTAUTH
         sessionStorage.setItem('authToken',_authToken);
+        */
         return  this._authToken;
       }));
   }
 
   logout(){
     this._authToken = null;
+    /* PERSISTAUTH
     sessionStorage.removeItem('authToken' );
+    */
     this._router.navigate(['/login'])
   }
 

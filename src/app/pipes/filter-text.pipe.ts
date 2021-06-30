@@ -1,7 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { filter } from 'rxjs/operators';
-
+/*
+FilterTextPipe - filter lines from a string given a search substring. Optionally can do plaintext or regex search
+*/
 @Pipe({
   name: 'filterText'
 })

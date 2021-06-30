@@ -1,5 +1,9 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Pipe, PipeTransform } from '@angular/core';
+/*
+HighlightTextPipe - highlight lines from a string given a search substring. Optionally can do plaintext or regex search
+Note: highlighting is done by wrapping matches in <mark> tag https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark
+*/
 
 @Pipe({
   name: 'highlightText'

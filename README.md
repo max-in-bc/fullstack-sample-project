@@ -20,11 +20,12 @@
 *Notes*
 - Dynamic mobile and desktop - fits to height of screen no scrolling
 - Can do plaintext searches for highlighting/filtering or optionally use js regex pattern (slower)
+- Optionally can persist an authenticated user by uncommenting all the code marked  with "PERSISTAUTH" comment in login.service. This simply saves the auth token to session storage to be consumed by the jwt interceptor upon re-entering within the same browser session
 - JWT token payload for auth includes permission data to be consumed by api for determining which services a user has access to
 - Decided to show both major ways of form handling in angular: reactive forms for login page and template-driven form for log viewer component.
 - Currently I have the api to fetch only the file called 'serviceX-debug.log' because this file contains all the same logs as the 'serviceX-info.log' also 'service-X-error.log' is empty in these mocked services so the debug.log files appeared to contain all the necessary relevent log info.
 - Currently the client calls the restful api to fetch updates to the log file every 3 seconds - flask is able to detect and cache static files that have remained unchanged since the last request. My other recommendation was to switch to websocket communication or to only call the RESTful endpoint upon infinite scroll.
-
+- No tests have been written
 - Around 10-15mb the log files became a bit much for the client to do all the filtering and highlighting on its end frequently.  In real world I would focus some filtering to the back end and separate the machine running the faux services (as that was taking up memory locally) . Instead I decided to make improvements to the search sequence on the front end
     - Debounce searches so they arent triggered on each key stroke
     - Show a loading spinner to the user to let them know highlighting is occurring
