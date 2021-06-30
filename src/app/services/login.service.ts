@@ -19,7 +19,12 @@ export class LoginService {
     return this._authToken !== null;
   }
 
-  constructor(private _http: HttpClient, private _router: Router) { }
+  constructor(private _http: HttpClient, private _router: Router) {
+    let _authToken = sessionStorage.getItem('authToken'); //to persist authentication for length of session
+    if (_authToken){
+      this._authToken = _authToken;
+    }
+  }
 
 
   login(username: string, password: string): Observable<string> {
@@ -30,6 +35,7 @@ export class LoginService {
       }, {responseType: 'text'})
       .pipe(map((_authToken: string) => {
         this._authToken = _authToken;
+        sessionStorage.setItem('authToken',_authToken);
         return  this._authToken;
       }));
   }

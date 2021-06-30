@@ -1,3 +1,6 @@
+
+import { FilterTextPipe } from './pipes/filter-text.pipe';
+import { FitToScreenHeightDirective } from './directives/fit-to-screen-height.directive';
 import { LogService } from '@services/log.service';
 
 import { ErrorInterceptor } from './interceptors/error.interceptor';
@@ -12,18 +15,24 @@ import { LoginComponent } from './login/login.component';
 import { LogViewerComponent } from './log-viewer/log-viewer.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import {  MatInputModule } from '@angular/material/input';
+import {  MatSelectModule } from '@angular/material/select';
+import {  MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { HighlightTextPipe } from './pipes/highlight-text.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    LogViewerComponent
+    LogViewerComponent,
+    FitToScreenHeightDirective,
+    FilterTextPipe,
+    HighlightTextPipe,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +40,10 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     AppRoutingModule,
     MatCardModule,
     MatFormFieldModule,
+    FormsModule,
     MatInputModule,
+    MatSelectModule,
+    MatIconModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxUiLoaderModule

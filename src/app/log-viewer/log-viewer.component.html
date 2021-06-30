@@ -1,2 +1,50 @@
-<p>log-viewer works!</p>
-<button (click)="logout()">Logout</button>
+
+
+<ngx-ui-loader></ngx-ui-loader>
+<div class="component-wrapper">
+  <mat-card class="viewer-container">
+    <mat-card-subtitle>
+      <div class="d-flex justify-content-between align-items-center flex-nowrap">
+        <mat-form-field class="w-100" style="max-width:30%">
+          <mat-label>Service name</mat-label>
+          <mat-select [(ngModel)]="selectedService" (ngModelChange)="selectedServiceChanged()">
+            <mat-option *ngFor="let service of services" [value]="service">
+              {{service.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-100"  style="max-width:30%">
+          <input [(ngModel)]="filterSearchString" matInput placeholder="Filter by keyword" class="w-100" />
+          <div matSuffix  [ngStyle]="{'background': filterRegexEnabled ? '#185cb5' : 'transparent'}"  style="border-radius: 4px" >
+            <button class="btn-clean btn-sm m-0" (click)="filterRegexEnabled=!filterRegexEnabled" [ngStyle]="{'filter': filterRegexEnabled ? 'invert(1)' : 'inherit'}">
+              <img src="assets/regex-icon.svg"/>
+            </button>
+          </div>
+        </mat-form-field>
+        <mat-form-field class="w-100"  style="max-width:30%">
+          <input [(ngModel)]="highlightSearchString" matInput placeholder="Highlight the keyword" class="w-100" />
+          <div matSuffix  [ngStyle]="{'background': highlightRegexEnabled ? '#185cb5' : 'transparent'}"  style="border-radius: 4px" >
+            <button class="btn-clean btn-sm m-0" (click)="highlightRegexEnabled=!highlightRegexEnabled" [ngStyle]="{'filter': highlightRegexEnabled ? 'invert(1)' : 'inherit'}">
+              <img src="assets/regex-icon.svg"/>
+            </button>
+          </div>
+        </mat-form-field>
+      </div>
+
+    </mat-card-subtitle>
+
+    <mat-card-content>
+      <mat-error *ngIf="!selectedServiceLog$">Select a service from "Service name" dropdown to view logs...</mat-error>
+
+        <pre class="logarea w-100 "
+         [innerHTML]="selectedServiceLog$ | async | filterText:filterSearchString:filterRegexEnabled | highlightText:highlightSearchString:highlightRegexEnabled "
+         readonly
+         fitToScreenHeight [addHeight]="-50" [itemsToWatch]="[selectedServiceLog$, selectedService]" >
+        </pre>
+
+    </mat-card-content>
+    <mat-card-actions>
+
+    </mat-card-actions>
+  </mat-card>
+</div>
