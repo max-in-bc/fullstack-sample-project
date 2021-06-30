@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { filter } from 'rxjs/operators';
 
 @Pipe({
@@ -6,28 +7,24 @@ import { filter } from 'rxjs/operators';
 })
 export class FilterTextPipe implements PipeTransform {
 
-  // transform(itemString: string, searchText: string): string {
-  //   if (!searchText || !itemString) { return itemString; }
-  //   let items = itemString.split('\n');
-  //   return items.filter(item => {
-  //     return item.toLowerCase().includes(searchText.toLowerCase());
-  //   }).join('\n');
-  // }
+  constructor(private _ngxLoader: NgxSpinnerService){
 
+  }
 
   transform(itemString: string, searchText: string, filterRegexEnabled: boolean = false): string {
     if (!searchText || !itemString) { return itemString; }
     let items = itemString.split('\n');
-    return items.filter(item => {
+    var result : string = items.filter(item => {
       if (filterRegexEnabled){
-
         return item.match(new RegExp(searchText, "g")) != null;
       }
       else{
-
-        return item.toLowerCase().includes(searchText.toLowerCase());
+        return item.includes(searchText);
       }
     }).join('\n');
+
+    this._ngxLoader.hide();
+    return result;
 
   }
 }

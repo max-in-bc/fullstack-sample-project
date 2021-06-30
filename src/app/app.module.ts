@@ -22,8 +22,8 @@ import {  MatInputModule } from '@angular/material/input';
 import {  MatSelectModule } from '@angular/material/select';
 import {  MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { HighlightTextPipe } from './pipes/highlight-text.pipe';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { HighlightTextPipe } from './pipes/highlight-text.pipe';
     MatIconModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxUiLoaderModule
+    NgxSpinnerModule
   ],
   providers: [
     LoginService,

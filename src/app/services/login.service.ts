@@ -42,6 +42,7 @@ export class LoginService {
 
   logout(){
     this._authToken = null;
+    sessionStorage.removeItem('authToken' );
     this._router.navigate(['/login'])
   }
 

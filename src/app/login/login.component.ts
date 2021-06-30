@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -25,13 +25,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   validationError = false;
 
-  constructor(private _loginService: LoginService, private _router: Router, private ngxLoader: NgxUiLoaderService) { }
+  constructor(private _loginService: LoginService, private _router: Router, private _ngxLoader: NgxSpinnerService) { }
 
   ngOnInit(): void {
   }
 
   login() {
-    this.ngxLoader.start();
+    this._ngxLoader.show();
     this.validationError = false;
 
     const password = this.loginGroup.get('password').value;
@@ -45,13 +45,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this._router.navigate(['/home'])
-          this.ngxLoader.stop();
+          this._ngxLoader.hide();
         },
         (error: HttpErrorResponse) => {
           // handle login failure
           this.validationError = true;
           console.error(error);
-          this.ngxLoader.stop();
+          this._ngxLoader.hide();
         }
       );
   }
