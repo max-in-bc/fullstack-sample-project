@@ -2,8 +2,8 @@
 *How to run locally*:
 1. Begin the mock services (2 commands depending on OS) — ignore this step if you have them being mocked elsewhere:
     1. Go into api code main project directory (with server.py in it)
-    2. $python services/server1.py
-    3. $python services/server2.py
+    2. $python service1.py
+    3. $python service2.py
 2. Begin the API (2 commands via gunicorn for WSGI)
     1. Go into api code main project directory (with server.py in it)
     2. Create/start venv if not already:

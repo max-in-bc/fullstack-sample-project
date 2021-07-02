@@ -8,6 +8,7 @@
 /bazel-out
 api/logs
 api/venv
+api/env
 api/__pycache__
 
 # dependencies
