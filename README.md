@@ -15,6 +15,7 @@
     1. Navigate to client code
     2. $npm install
     3. $npm run start
+4. Go to http://localhost:5555/ in browser should redirect to login screen
 
 
 #Notes#
