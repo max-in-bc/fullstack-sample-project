@@ -54,8 +54,8 @@ def login():
             user_permission = 'regular'
 
         new_user = User(username, user_permission)
-        start_faux_logs()
-        atexit.register(stop_faux_logs) #stop the logs from running forever
+        # start_faux_logs() #turning this off for running locally - can be controlled better in separate terminal but is running with this at d2p85gy4ump14i.cloudfront.net
+        # atexit.register(stop_faux_logs) #stop the logs from running forever
         return new_user.encode_auth_token( ), 200
     else:
         return 'Error: Password mismatch', 401
