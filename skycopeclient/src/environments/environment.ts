@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // baseUrl: document.getElementsByTagName('base')[0].href,
-  baseUrl:'https://flask-demo-api-service.fqrm6ri02mtti.us-west-2.cs.amazonlightsail.com/'
+  baseUrl: document.getElementsByTagName('base')[0].href,
+  // baseUrl:'https://flask-demo-api-service.fqrm6ri02mtti.us-west-2.cs.amazonlightsail.com/'
 };
 
 /*
