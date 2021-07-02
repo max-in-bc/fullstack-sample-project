@@ -10,7 +10,7 @@
         1. $ python3 -m venv env
         2. $ source env/bin/activate
     3. $ pip3 install -r requirements.txt 
-    4. $ gunicorn --bind 0.0.0.0:3000 wsgi:app
+    4. $ gunicorn --bind 0.0.0.0:5000 wsgi:app
 3. Begin the client (proxy to local api) 
     1. Navigate to client code
     2. $npm install
