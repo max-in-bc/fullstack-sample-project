@@ -1,5 +1,5 @@
 
-#How to run locally#
+# How to run locally 
 1. Begin the mock services (2 commands depending on OS) — ignore this step if you have them being mocked elsewhere:
     1. Go into api code main project directory (with server.py in it)
     2. $python service1.py
@@ -18,7 +18,7 @@
 4. Go to http://localhost:5555/ in browser should redirect to login screen
 
 
-#Notes#
+# Notes 
 - Dynamic mobile and desktop - fits to height of screen no scrolling
 - Can do plaintext searches for highlighting/filtering or optionally use js regex pattern (slower)
 - Optionally can persist an authenticated user by uncommenting all the code marked  with "PERSISTAUTH" comment in login.service. This simply saves the auth token to session storage to be consumed by the jwt interceptor upon re-entering within the same browser session
@@ -32,7 +32,7 @@
     - Show a loading spinner to the user to let them know highlighting is occurring
 
 
-#Quick Design#
+# Quick Design 
 - The following notes were what I used to flesh out the design before implementing. It was a simple enough project so I did not get too in depth before implementing, but I will include this section for posterity.
 - Its been half a decade since I used any python frameworks , but I did some quick googling and saw that Flask and Django are both still very popular so I decided to start new and go with a basic flask REST API
     - Setup virtual env for basic api for auth/retrieving logs
@@ -79,7 +79,7 @@
                 - Even without redirection, any subsequent calls to the api will fail without proper authentication so it just makes sense to redirect users to login at this point
         - Can embed info in JWT token related to user permissions to be consumed by the backend for determining which resources the user has access to (user 1 and service 1 for example) 
  
-#Notes on deployment#
+# Notes on deployment 
 I did not modify the client I sent you at all, but it is deployed to an s3 bucket with aws cloudfront helping to treat it as an spa. This also has the added benefit of generating a valid ssl certificate and force-redirects to https://d2p85gy4ump14i.cloudfront.net
 
 
