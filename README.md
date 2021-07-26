@@ -1,4 +1,14 @@
 
+
+## Problem Description
+
+![description 1](description1.png)
+![description 2](description2.png)
+![description 3](description3.png)
+
+
+## Solution
+
 # How to run locally 
 1. Begin the mock services (2 commands depending on OS) — ignore this step if you have them being mocked elsewhere:
     1. Go into api code main project directory (with server.py in it)
