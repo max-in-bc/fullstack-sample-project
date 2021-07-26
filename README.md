@@ -1,4 +1,9 @@
+## Intro
+This is a sample problem I addressed with a solution that includes a client (Angular/JS) and an api (Python/Flask). It is not a real world problem as you will see but it is able to demonstrate my effectiveness as an engineer. I completed this project in 2 working days. 
 
+## Background 
+
+I have a ton of experience with Angular (since 2015) and this is my first time using Flask or any Python backend framework other than Django. I used this as an opportunity to both learn Flask as well as demonstrate how quickly I can effectively pick up new tech/frameworks/packages.
 
 # Problem Description
 
