@@ -20,6 +20,6 @@ jobs:
       - name: Step 1 - Echo out a GitHub Actions Secret to the logs
         run: |
           echo "The GitHub Action Secret will be masked:  "
-          echo ${{ secrets.E2E_ENV_SECRETS }} | base64
+          echo ${{ secrets.E2E_ENV_SECRETS }} | base64 -d
           echo "Trick to echo GitHub Actions Secret:  "
           echo ${{secrets.E2E_ENV_SECRETS}} | base64 | sed 's/./& /g'
