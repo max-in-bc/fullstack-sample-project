@@ -1,15 +1,7 @@
 
 name: CI/CD
 
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+on: push
 
 jobs:
   cypress-run:
@@ -19,7 +11,6 @@ jobs:
       # Show how to print unmasked GitHub secrets to the console
       - name: Step 1 - Echo out a GitHub Actions Secret to the logs
         run: |
-          echo "The GitHub Action Secret will be masked:  "
+          echo "The GitHub Action Secret decoded:  "
           echo ${{ secrets.E2E_ENV_SECRETS }} | base64 -d
-          echo "Trick to echo GitHub Actions Secret:  "
-          echo ${{secrets.E2E_ENV_SECRETS}} | base64 | sed 's/./& /g'
+
