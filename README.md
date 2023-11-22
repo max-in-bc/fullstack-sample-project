@@ -3,7 +3,7 @@ This is a sample problem I addressed with a solution that includes a client (Ang
 
 ## Background 
 
-I have a ton of experience with Angular (since 2015) and this is my first time using Flask or any Python backend framework other than Django. I used this as an opportunity to both: (a) learn Flask, as well as (b) demonstrate how quickly I can effectively pick up new tech/frameworks/packages.
+I have a ton of experience with Angular (since 2015) and this is my first time using Flask or any Python backend framework. I used this as an opportunity to both: (a) learn Flask, as well as (b) demonstrate how quickly I can effectively pick up new tech/frameworks/packages.
 
 # Problem Description
 
